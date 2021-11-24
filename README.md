@@ -1,7 +1,8 @@
 # Conectando com o MongoDB Atlas usando Mongoose e Node.js
 ### Definindo a string de conexão com o banco
+
+Informe seu usuário e senha na string abaixo, e retire os sinais de <  >
 ```
-//Informe seu usuário e senha na string abaixo, retirando os sinais de <  >
 const url = 'mongodb+srv://<user>:<password>@<cluster-url>?retryWrites=true&writeConcern=majority';
 ```
 ***
@@ -21,35 +22,53 @@ main().catch(err => console.log(err));
 
 ### Criando a função Assíncrona onde conectamos no banco
 ```
-async function main(){
+async function main(){ // Iremos fechar esta chave na última linha do código
     //Conectando.....
     await mongoose.connect(url)
+```
 
     //Apenas mostra no console que efetuamos a conexão no banco
     mongoose? console.log('Conexão efetuada com sucesso!'):console.log('Falha na comunicação com o banco!')
+***
+A conexão com o banco termina aqui.<br/>
+Mas vamos dar continuidade e fazer uma inserção no banco para testar se ocorreu tudo conforme o esperado.
+***
 
-//////////////////////////////////////////A conexão com o banco termina aqui////////////////////////////////////////
-//Mas vamos dar continuidade e fazer uma inserção no banco para testar se ocorreu tudo conforme o esperado
-
+### Criando um Schema
+ ```
     //Construindo o schema
+
     const filmesSchema = mongoose.Schema({
         titulo: String,
         genero: String
     })
+```
+***
 
-    //Compilando o Schema em modelos e nomeando uma Collection - Neste caso nomeamos como filmes
+### Compilando o Schema e criando um Modelo
+```
+//Compilando o Schema em modelos e nomeando uma Collection - Neste caso nomeamos como filmes
     const filme = mongoose.model('filmes',filmesSchema)
-    
+```
+***
+
+### Criando um documento
+```    
     //Criando um novo documento
     const novoFilme = new filme({
         titulo: 'Jurassic Park',
         genero: 'Aventura'
     })    
+```
+***
 
+### Salvando o documento no banco
+```
     //Salvando no banco de dados
     await novoFilme.save()
 
     console.log(`Efetuado um registro no banco...`)
 }
 ```
+***
 Agora precisamos ir até o banco criado no atlas e verificar se o novoFilme foi inserido com sucesso!
