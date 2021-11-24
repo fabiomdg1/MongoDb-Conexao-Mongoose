@@ -13,7 +13,7 @@ const mongoose = require('mongoose')
 ```
 ***
 
-### Tratamento de erro
+### Caso houver algum erro, será exibido no console
 ```
 main().catch(err => console.log(err));
 ```
@@ -25,7 +25,11 @@ async function main(){
     //Conectando.....
     await mongoose.connect(url)
 
+    //Apenas mostra no console que efetuamos a conexão no banco
     mongoose? console.log('Conexão efetuada com sucesso!'):console.log('Falha na comunicação com o banco!')
+
+//////////////////////////A conexão com o banco termina aqui//////////////////////////////////////
+//Mas vamos dar continuidade e fazer uma inserção no banco para testar se ocorreu tudo conforme o esperado
 
     //Construindo o schema
     const filmesSchema = mongoose.Schema({
@@ -48,3 +52,4 @@ async function main(){
     console.log(`Efetuado um registro no banco...`)
 }
 ```
+Agora precisamos ir até o banco criado no atlas e verificar se o novoFilme foi inserido com sucesso!
